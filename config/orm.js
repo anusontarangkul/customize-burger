@@ -1,5 +1,5 @@
-const connection = require("./connection");
-
+// const connection = require("./connection");
+const connection = require("../config/connection.js")
 var orm = {
     selectAll: function (tableInput) {
         var queryString = "SELECT * FROM ??";
