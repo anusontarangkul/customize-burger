@@ -6,16 +6,29 @@ const router = express.Router();
 //     res.redirect("/burgers")
 // });
 
-router.get("/", function (req, res) {
-    burger.all(function (data) {
+router.get("/", (req, res) => {
+    burger.all(data => {
         var hbsObject = { burgers: data };
-        console.log(hbsObject);
         res.render("index", {
-            // burger_data: data
             burgers: data
         });
     });
 });
+
+router.post("/", (req, res) => {
+    let newBurger = req.body.burger_name;
+    if (newBurger !== "") {
+        burger.insertOne(newBurger.trim(), () => {
+            res.redirect("/");
+        });
+    }
+});
+
+router.put("/:id", (req, res) => {
+    burger.updateOne(req.params.id, () => {
+        res.redirect("/");
+    })
+})
 
 
 module.exports = router;
